@@ -43,7 +43,7 @@ const Navbar = () => {
     try {
       const wishlistData = JSON.parse(localStorage.getItem("wishlist")) || [];
       await axios.post(
-        "http://localhost:4000/user/logout",
+        "https://shopping-z604.onrender.com/user/logout",
         { wishlist: wishlistData },
         { withCredentials: true }
       );
