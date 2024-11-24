@@ -21,7 +21,7 @@ function SignUp() {
     }
   
     try {
-      const response = await fetch('http://localhost:4000/user/register', {
+      const response = await fetch('https://shopping-z604.onrender.com/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fullName: username, email, password }),
