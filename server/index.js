@@ -27,22 +27,41 @@ app.use(cookieParser());
 //   credentials: true,
 // };
 // app.use(cors(corsOptions));
+// const allowedOrigins = [
+//     "http://localhost:3000",
+//     "https://shopiemudit.netlify.app",
+// ];
+// app.use(cors({
+//     origin: (origin, callback) => {
+//         // Allow requests with no origin (like from Postman) or matching origins
+//         if (!origin || allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error("Not allowed by CORS"));
+//         }
+//     },
+//     methods: 'GET,POST,PUT,PATCH,DELETE',
+//     credentials: true
+// }));
 const allowedOrigins = [
     "http://localhost:3000",
     "https://shopiemudit.netlify.app",
 ];
-app.use(cors({
+
+app.use(
+  cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (like from Postman) or matching origins
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
+      // Allow requests with no origin (e.g., Postman) or matching origins
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
     },
-    methods: 'GET,POST,PUT,PATCH,DELETE',
-    credentials: true
-}));
+    methods: "GET,POST,PUT,PATCH,DELETE", // Explicitly allowed methods
+    credentials: true, // Enable cookies and credentials
+  })
+);
 
 // API routes
 app.use("/user", userRouter); // User routes
