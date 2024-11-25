@@ -39,27 +39,59 @@ const Navbar = () => {
     };
   }, [location]);
 
+  // const handleLogout = async () => {
+  //   try {
+  //     const wishlistData = JSON.parse(localStorage.getItem("wishlist")) || [];
+  //     await axios.post(
+  //       "https://shopping-z604.onrender.com/user/logout",
+  //       { wishlist: wishlistData },
+  //       { withCredentials: true }
+  //     );
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //   } finally {
+  //     localStorage.removeItem("wishlist");
+  //     localStorage.removeItem("authToken");
+  //     document.cookie =
+  //       "authCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  //     setIsLoggedIn(false);
+  //     clearUser();
+  //     dispatch(clearCart());
+  //     navigate("/login");
+  //   }
+  // };
   const handleLogout = async () => {
-    try {
-      const wishlistData = JSON.parse(localStorage.getItem("wishlist")) || [];
-      await axios.post(
-        "https://shopping-z604.onrender.com/user/logout",
-        { wishlist: wishlistData },
-        { withCredentials: true }
-      );
-    } catch (error) {
-      console.error("Logout failed:", error);
-    } finally {
-      localStorage.removeItem("wishlist");
-      localStorage.removeItem("authToken");
-      document.cookie =
-        "authCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      setIsLoggedIn(false);
-      clearUser();
-      dispatch(clearCart());
-      navigate("/login");
-    }
-  };
+  try {
+    // Retrieve wishlist from localStorage
+    const wishlistData = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    // Send logout request to the backend
+    await axios.post(
+      "https://shopping-z604.onrender.com/user/logout",
+      { wishlist: wishlistData },
+      { withCredentials: true } // Ensure cookies are sent with the request
+    );
+  } catch (error) {
+    console.error("Logout failed:", error);
+  } finally {
+    // Cleanup localStorage
+    localStorage.removeItem("wishlist");
+    localStorage.removeItem("authToken");
+
+    // Clear cookies
+    document.cookie =
+      "authCookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // Update application state
+    setIsLoggedIn(false);
+    clearUser();
+    dispatch(clearCart());
+
+    // Redirect user to login
+    navigate("/login");
+  }
+};
+
 
   return (
     <nav className="bg-slate-900 text-slate-100">
