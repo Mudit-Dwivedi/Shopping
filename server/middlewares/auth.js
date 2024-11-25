@@ -11,7 +11,9 @@ export const auth = async (req, res, next) => {
     // Check for token in request
     const token = req.body.token || req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
     console.log('Token in request:', token);
-    
+    console.log("Token from cookies:", req.cookies?.token);
+console.log("User from token:", req.user);
+
     // Return error if token is missing
     if (!token) {
       return res.status(400).json({
