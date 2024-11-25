@@ -12,7 +12,7 @@ export const auth = async (req, res, next) => {
     const token = req.body.token || req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
     console.log('Token in request:', token);
     console.log("Token from cookies:", req.cookies?.token);
-console.log("User from token:", req.user);
+console.log("User from token:", req.body?.token);
 
     // Return error if token is missing
     if (!token) {
