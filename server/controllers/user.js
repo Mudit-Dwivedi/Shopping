@@ -136,6 +136,7 @@ export const Logout = async (req, res) => {
       if (wishlist) {
         user.wishlist = wishlist; // Update user's wishlist
         await user.save(); // Save the user data
+        console.log("after update wislist",user.wishlist);
       }
 
       return res.status(200).json({
